@@ -11,8 +11,8 @@ function TodoFrom(){
         setTodo("");
     }
     return(
-        <form className="w-full flex" onSubmit={submitTodo}>
-            <input type="text" className="w-full outline-none px-3 py-3 rounded-l-md border-none bg-[#1e293b] text-xl duration-300" placeholder="Write your todos..." value={todo} onChange={(e)=>setTodo(e.target.value)}/>
+        <form className="w-full flex"  onSubmit={submitTodo}>
+            <input id="todo-input" name="todo" type="text" className="w-full outline-none px-3 py-3 rounded-l-md border-none bg-[#1e293b] text-xl duration-300" placeholder="Write your todos..." value={todo} onChange={(e)=>setTodo(e.target.value)}/>
             <button className="bg-green-500 px-5 py-3 rounded-r-md font-semibold text-lg" type="submit">Add</button>
         </form>
     )

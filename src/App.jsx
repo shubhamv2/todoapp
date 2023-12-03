@@ -1,13 +1,13 @@
 import { TodoFrom, TodoItems } from "./componets";
 import { TodoProvider } from "./context";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const addTodo = (todo) =>{
     setTodos((prev)=> [{id:Date.now(), ...todo},...prev]);
   }
-
+  const focusRef = useRef(null);
   const updateTodo = (id, todo) =>{
     setTodos((prev)=>prev.map((prevTodo)=>(prevTodo.id===id?todo:prevTodo)));
   }
@@ -41,7 +41,7 @@ function App() {
             {
               todos.map((todo)=>(
                 <div key={todo.id} className="w-full">
-                  <TodoItems todo={todo}/>
+                  <TodoItems todo={todo} focusRef={focusRef}/>
                 </div>
               ))
             }
