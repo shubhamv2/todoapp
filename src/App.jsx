@@ -1,4 +1,4 @@
-import { TodoFrom } from "./componets";
+import { TodoFrom, TodoItems } from "./componets";
 import { TodoProvider } from "./context";
 import { useState, useEffect } from "react";
 
@@ -34,11 +34,17 @@ function App() {
       <div className="bg-[#172554] w-full min-h-screen">
         <div className="text-white w-full max-w-2xl mx-auto rounded-lg shadow-md py-3 px-2">
           <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
-          <div>
+          <div className="w-full b-4">
             <TodoFrom />
           </div>
-          <div>
-
+          <div className="my-3">
+            {
+              todos.map((todo)=>(
+                <div key={todo.id} className="w-full">
+                  <TodoItems todo={todo}/>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>
