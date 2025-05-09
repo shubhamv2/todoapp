@@ -72,7 +72,9 @@
   padding: .6rem .4rem;
   background-color: #fbfcfc;
   box-shadow: #e5e7e9 1px 1px 4px;
+  font-family: sans-serif;
 }
+
 
 .checkbox-item{
   display: flex;

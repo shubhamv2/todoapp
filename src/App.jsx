@@ -16,21 +16,32 @@ function App() {
   const [todoText, setTodoText] = useState("")
   const [todos, setTodos] = useState([])
 
+  useEffect(()=>{
+    const allTodos = JSON.parse(localStorage.getItem('todos'))
+
+    if(allTodos.length > 0){
+      setTodos(allTodos)
+    }
+  },[])
+
+  useEffect(()=>{
+    localStorage.setItem('todos',JSON.stringify(todos))
+  },[todos])
+
   const handleOnTodoTextChange = (event) => {
     setTodoText(event.target.value)
   }
 
   const handleAddButtonClick = () => {
-
-    if(todoText !== ""){
-      setTodos([{ id: uuid(), todo: todoText.trim(), isCompleted: false }, ...todos])
+    if(todoText !== "" ){
+      setTodos([{ id: uuid(), todo: todoText.trim(), isCompleted: false, isEdit:false}, ...todos])
       setTodoText("")
     }
   }
 
   const handleOnCheck = (id) => {
-    const item = todos.find(todo => todo.id == id)
-    setTodos([{ ...item, isCompleted: !item.isCompleted }, ...todos.filter(todo => todo.id != id)])
+    const newtodos = todos.map(todo=> todo.id == id?{...todo, isCompleted: !todo.isCompleted}:todo)
+    setTodos(newtodos)
   }
 
   const handleKeyDown = (event) => {
@@ -43,8 +54,9 @@ function App() {
     setTodos(todos.filter(todo=> todo.id != id))
   }
   const handleEdit = (id) =>{
-    setTodoText(todos.find(todo=>todo.id === id).todo)
-    setTodos(todos.filter(todo=>todo.id !== id))
+    const newTodos = todos.map(todo=> todo.id == id?{...todo, isEdit:!todo.isEdit}:todo)
+    setTodos(newTodos)
+    console.log(newTodos)
 
   }
 
