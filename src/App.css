@@ -1,0 +1,55 @@
+.todo-container{
+  background-color: var(--secondary);
+  width: 400px;
+  height: 500px;
+  margin: auto;
+  margin-top: 1rem;
+  border-radius: .5rem;
+  padding-top: 2rem;
+
+}
+
+.todo-heading{
+  font-family:sans-serif;
+  font-size:1.5rem;
+  text-align: center;
+  color: var(--activecolor);
+}
+
+.todo-add{
+  margin: 1rem 2rem; 
+  display: flex;
+  border: 1px solid var(--activecolor);
+  border-radius: .1rem;
+  overflow: hidden;
+}
+
+.todo-add input{
+  width: 85%;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  padding: .5rem;
+}
+
+.todo-add input::placeholder{
+  font-size: .9rem;
+  color: var(--inactivecolor);
+}
+.todo-add button{
+  width: 15%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--lightactivecolor);
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  
+}
+
+.todo-add button:active{
+  background-color: var(--activecolor);
+}
