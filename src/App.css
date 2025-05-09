@@ -53,3 +53,62 @@
 .todo-add button:active{
   background-color: var(--activecolor);
 }
+
+.todolist{
+  margin: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap:.8rem;
+  height: 350px;
+  overflow-y: auto;
+}
+
+.todo-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: .6rem .4rem;
+  background-color: #fbfcfc;
+  box-shadow: #e5e7e9 1px 1px 4px;
+}
+
+.checkbox-item{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.checked{
+  color: #82e0aa;
+}
+
+.unchecked{
+  color: var(--activecolor);
+}
+.todo-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn{
+  border: none;
+  outline: none;
+  font-size: 1.7rem;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-del{
+  color: red;
+}
+
+.btn-edit{
+  color: var(--activecolor);
+}
