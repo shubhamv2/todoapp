@@ -2,12 +2,8 @@ import './App.css'
 import { IoAdd } from "react-icons/io5";
 import { useState, useEffect, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
-import { MdDeleteOutline } from "react-icons/md";
-import { BiMessageSquareEdit } from "react-icons/bi";
-import { RiCheckboxCircleLine } from "react-icons/ri";
-import { RiCheckboxCircleFill } from "react-icons/ri";
-import { NavLink } from 'react-router';
-
+import { NavLink, Routes, Route, useLocation, useNavigate } from 'react-router';
+import TodoList from './components/TodoList'; 
 
 function App() {
 
@@ -17,6 +13,8 @@ function App() {
   const [idToUpdate, setIdToUpdate] = useState('')
   const ref = useRef(0)
 
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -46,6 +44,7 @@ function App() {
   }
 
   const handleAddButtonClick = () => {
+   
 
     if (todoText !== "" && isEdit) {
 
@@ -63,6 +62,10 @@ function App() {
     else if (todoText !== "") {
       setTodos([{ id: uuid(), todo: todoText.trim(), isCompleted: false, isEdit: false }, ...todos])
       setTodoText("")
+    }
+
+    if(location.pathname !== '/'){
+      navigate('/')
     }
   }
 
@@ -86,6 +89,9 @@ function App() {
     setTodoText(todos.find(item => item.id === id).todo)
     ref.current.focus()
   }
+  const pendingTask = todos.filter(item=>item.isCompleted !== true)
+  const completedTask = todos.filter(item=>item.isCompleted === true)
+
 
   return (
     <div className='todo-container'>
@@ -96,47 +102,26 @@ function App() {
       </div>
 
       <div className="navigator">
-        <NavLink to='/' className="all-todo">
-          All Tasks({todos.length})
+        <NavLink to='/' className="pending-todo">
+          Pending Task({todos.filter(item=>item.isCompleted !== true).length})
         </NavLink>
         <NavLink to="/completed" className="completed-todo">
-          Completed Tasks({todos.length})
-        </NavLink>
-        <NavLink to="/deleted" className="all-todo">
-          Deleted Tasks({todos.length})
+          Completed Tasks({todos.filter(item=>item.isCompleted === true).length})
         </NavLink>
       </div>
 
       {/* todo list */}
-      <div className="todolist">
-        {
-          todos.map(todo => <div key={todo.id} className='todo-item'>
 
-            <div className="checkbox-item">
-
-              <div className="checkbox">
-                <button onKeyDown={(event) => handleKeyDown(event)} onClick={() => handleOnCheck(todo.id)} className={`btn ${todo.isCompleted ? "checked" : "unchecked"}`}>{
-                  !todo.isCompleted ? <RiCheckboxCircleLine /> :
-                    <RiCheckboxCircleFill />
-                }
-                </button>
-              </div>
-
-              <p className="todo-content" style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}>
-                {todo.todo}
-              </p>
-            </div>
-            <div className="todo-buttons">
-              <button onClick={() => handleEdit(todo.id)} className='btn btn-edit'>
-                <BiMessageSquareEdit />
-              </button>
-              <button onClick={() => handleDelete(todo.id)} className='btn btn-del'>
-                <MdDeleteOutline />
-              </button>
-            </div>
-          </div>)
-        }
-      </div>
+      <Routes>
+        <Route index path='/'
+        element={<TodoList todos={pendingTask} handleOnCheck={handleOnCheck} handleDelete={handleDelete} handleEdit={handleEdit} location={location.pathname}/>}
+        />
+        <Route index path='completed'
+        element={<TodoList todos={completedTask} handleOnCheck={handleOnCheck} handleDelete={handleDelete} handleEdit={handleEdit} location={location.pathname}/>}
+        />
+      </Routes>
+      
+      
     </div>
   )
 }

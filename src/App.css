@@ -61,7 +61,22 @@
   margin-bottom: 1rem;
   font-size: .8rem;
   display: flex;
-  justify-content: space-between;
+}
+.pending-todo{
+  text-decoration: none;
+  width: 50%;
+  color: black;
+  text-align: center;
+}
+.completed-todo{
+  width: 50%;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+.active{
+  border-bottom: 2px solid var(--activecolor);
+  padding-bottom: .6rem;
 }
 
 .todolist{
@@ -70,7 +85,9 @@
   flex-direction: column;
   gap:1rem;
   height: 350px;
-  overflow-y: auto;
+  overflow-y:scroll;
+  padding-right: 1rem;
+
 }
 
 .todo-item{
@@ -128,4 +145,38 @@
 
 .btn-edit{
   color: var(--activecolor);
+}
+
+.todolist::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Scrollbar Thumb (the moving part) */
+.todolist::-webkit-scrollbar-thumb {
+  background-color: var(--lightactivecolor);
+  border-radius: 4px;
+}
+
+/* Scrollbar on hover */
+.todolist::-webkit-scrollbar-thumb:hover {
+  background-color: var(--activecolor);
+}
+
+/* Scrollbar Track Background */
+.todolist::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
+@media only screen and (max-width:500px){
+  .todo-container{
+    background-color: var(--secondary);
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+    margin-top: 0;
+    border-radius: .5rem;
+    padding-top: 4rem;
+  
+  }
 }
