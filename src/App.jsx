@@ -12,7 +12,6 @@ function App() {
   const [isEdit, setIsEdit] = useState(false)
   const [idToUpdate, setIdToUpdate] = useState('')
   const ref = useRef(0)
-
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -37,15 +36,18 @@ function App() {
   }, [todos])
 
 
+  
   const handleOnTodoTextChange = (event) => {
 
     setTodoText(event.target.value)
 
   }
 
+  
+  
+  //Function to add and edit todos
   const handleAddButtonClick = () => {
    
-
     if (todoText !== "" && isEdit) {
 
       setTodos([...todos.map(todo => todo.id === idToUpdate ? { ...todo, todo: todoText } : todo)])
@@ -60,36 +62,53 @@ function App() {
     }
 
     else if (todoText !== "") {
+      
       setTodos([{ id: uuid(), todo: todoText.trim(), isCompleted: false, isEdit: false }, ...todos])
+      
       setTodoText("")
     }
 
     if(location.pathname !== '/'){
+      
       navigate('/')
+    
     }
   }
 
+  
+  //logic for checkbox
   const handleOnCheck = (id) => {
+    
     const newtodos = todos.map(todo => todo.id == id ? { ...todo, isCompleted: !todo.isCompleted } : todo)
+    
     setTodos(newtodos)
+  
   }
 
+  //logic if we press enter in input tag
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleAddButtonClick()
     }
   }
 
+  //logic for deleting todos
   const handleDelete = (id) => {
     setTodos(todos.filter(todo => todo.id != id))
   }
+
+
+  //logic for edit todos
   const handleEdit = (id) => {
     setIsEdit(true)
     setIdToUpdate(id)
     setTodoText(todos.find(item => item.id === id).todo)
     ref.current.focus()
   }
+
+  
   const pendingTask = todos.filter(item=>item.isCompleted !== true)
+  
   const completedTask = todos.filter(item=>item.isCompleted === true)
 
 
