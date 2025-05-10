@@ -12,9 +12,9 @@ const TodoList = ({todos, handleDelete, handleEdit,handleOnCheck, location}) => 
     }
 
     return (
-        <div className="todolist">
+        <ul className="todolist">
             {
-                todos.length > 0 ? todos.map(todo => <div key={todo.id} className='todo-item'>
+                todos.length > 0 ? todos.map(todo => <li key={todo.id} className='todo-item'>
 
                     <div className="checkbox-item">
 
@@ -38,9 +38,9 @@ const TodoList = ({todos, handleDelete, handleEdit,handleOnCheck, location}) => 
                             <MdDeleteOutline />
                         </button>
                     </div>
-                </div>): location ==="/" ?<p style={myclass}>There are no pending task</p>:<p style={myclass}>There are no completed task</p>
+                </li>): location ==="/" ?<p style={myclass}>There are no pending task</p>:<p style={myclass}>There are no completed task</p>
             }
-        </div>
+        </ul>
 
     )
 }
